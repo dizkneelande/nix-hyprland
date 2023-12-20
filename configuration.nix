@@ -84,7 +84,7 @@
   users.users.nell = {
     isNormalUser = true;
     description = "nell";
-    extraGroups = [ "networkmanager" "wheel" "video" "audio" "lp" ];
+    extraGroups = [ "networkmanager" "wheel" "video" "audio" "disk" "lp" ];
     packages = with pkgs; [
     #  firefox
     #  thunderbird
@@ -182,6 +182,7 @@
     tokyo-night-gtk
     bibata-cursors
     noto-fonts-cjk-sans
+    noto-fonts-color-emoji
     google-fonts
     corefonts
     vistafonts
@@ -237,3 +238,4 @@
   system.stateVersion = "23.11"; # Did you read the comment?
 
 }
+

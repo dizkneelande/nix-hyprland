@@ -5,7 +5,7 @@ let
 in
 {
   imports = [
-    (import "${home-manager}/nixos")
+    (import "${home-manager}/nixos") 
   ];
 
   home-manager.users.nell = {
@@ -23,13 +23,9 @@ in
       gtk.enable = true;
       # x11.enable = true;
       package = pkgs.bibata-cursors;
-      name = "Bibata-Modern-Ice";
+      name = "Bibata-Modern-Classic";
       size = 24;
   };
-  qt.enable = true;
-  qt.platformTheme = "gtk";
-  qt.style.name = "adwaita-dark";
-  qt.style.package = pkgs.adwaita-qt;
   gtk = {
       enable = true;
       font = {
@@ -46,7 +42,7 @@ in
         package = pkgs.papirus-icon-theme;
     };
     cursorTheme = {
-        name = "Bibata-Modern-Ice";
+        name = "Bibata-Modern-Classic";
         package = pkgs.bibata-cursors;
     };
     gtk3.extraConfig = {
@@ -347,3 +343,4 @@ programs = {
   };
   };
 }
+
