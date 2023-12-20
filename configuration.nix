@@ -8,6 +8,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      # Include Home Manager
+      ./home.nix
     ];
 
   # Bootloader.
@@ -125,7 +127,7 @@
     wlogout
     swappy
     pcmanfm
-    alacritty
+    kitty 
     nwg-look 
     xfce.thunar
     xfce.thunar-volman
@@ -184,6 +186,11 @@
     corefonts
     vistafonts
   ];
+
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "Ubuntu" "UbuntuMono" ]; })
+  ];
+
 
   # Steam Configuration
   programs.steam = {
