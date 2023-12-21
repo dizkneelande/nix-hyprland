@@ -91,6 +91,7 @@
     gtop
     htop
     git
+    etcher
     libvirt
     grim
     slurp
