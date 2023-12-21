@@ -1,8 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  home-manager.users.nell = {
-
   home.username = "nell";
   home.homeDirectory = "/home/nell";
   home.stateVersion = "23.11";
@@ -386,6 +384,5 @@
 	}
       '';
     };
-  };
   };
 }
