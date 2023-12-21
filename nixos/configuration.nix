@@ -98,6 +98,7 @@
     unzip
     unrar
     gnome.file-roller
+    gnome-browser-connector
     libnotify
     swaynotificationcenter
     tofi
