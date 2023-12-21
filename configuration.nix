@@ -8,20 +8,16 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      # Include Home Manager
+      <home-manager/nixos>
     ];
 
-  # Bootloader.
+  # Bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Networking
   networking.hostName = "dizkneelande"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
   networking.networkmanager.enable = true;
 
   # Set your time zone.
@@ -48,6 +44,9 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+
+  # Enable Hyprland
+  programs.hyprland.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -82,24 +81,18 @@
   users.users.nell = {
     isNormalUser = true;
     description = "nell";
-    extraGroups = [ "networkmanager" "wheel" "video" "audio" "lp" ];
-    packages = with pkgs; [
-    #  firefox
-    #  thunderbird
-    ];
+    extraGroups = [ "networkmanager" "wheel" "video" "audio" "disk" "lp" ];
+    packages = with pkgs; [ ];
   };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # Enable Hyprland
-  programs.hyprland.enable = true;
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # Utils
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim
     wget
     btop
     gtop
@@ -125,7 +118,7 @@
     wlogout
     swappy
     pcmanfm
-    alacritty
+    kitty 
     nwg-look 
     xfce.thunar
     xfce.thunar-volman
@@ -171,8 +164,8 @@
     audacity
     brightnessctl
     # Gaming
-    zeroad
-    xonotic
+    #zeroad
+    #xonotic
     # Fonts
     ubuntu_font_family
     papirus-icon-theme
@@ -180,9 +173,15 @@
     tokyo-night-gtk
     bibata-cursors
     noto-fonts-cjk-sans
+    noto-fonts-color-emoji
     google-fonts
     corefonts
     vistafonts
+  ];
+  
+  # Nerdfonts
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "Ubuntu" "UbuntuMono" ]; })
   ];
 
   # Steam Configuration
@@ -202,25 +201,6 @@
     };
   };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
@@ -228,5 +208,14 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
+  
+  ## -- home manager ---- ##
+  
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.nell = import ./home.nix;
+  };
+  
 }
+
