@@ -98,12 +98,6 @@
         '';
     };
   };
-  xdg = {
-    userDirs = {
-        enable = true;
-        createDirectories = true;
-    };
-  };
   programs = {
     kitty = {
       enable = true;
