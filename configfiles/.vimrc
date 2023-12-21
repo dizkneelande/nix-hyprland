@@ -1,112 +1,88 @@
-" ███████╗ █████╗ ███╗   ██╗███████╗██╗   ██╗███████╗
-" ╚══███╔╝██╔══██╗████╗  ██║██╔════╝╚██╗ ██╔╝██╔════╝
-"   ███╔╝ ███████║██╔██╗ ██║█████╗   ╚████╔╝ ███████╗
-"  ███╔╝  ██╔══██║██║╚██╗██║██╔══╝    ╚██╔╝  ╚════██║
-" ███████╗██║  ██║██║ ╚████║███████╗   ██║   ███████║
-" ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚══════╝
-" Dotfiles circa 2023 (Inspired by DT's config)
+" Disable compatibility with vi which can cause unexpected issues.
+set nocompatible
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Automatically install vim-plug node & language servers
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-  autocmd VimEnter * CocInstall coc-sh coc-clangd coc-html coc-tsserver coc-json coc-pyright coc-go coc-css coc-rust-analyzer
-endif
+" Enable type file detection. Vim will be able to try to detect the type of file in use.
+filetype on
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugins
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-call plug#begin('~/.vim/plugged')
-    Plug 'itchyny/lightline.vim'                       " Lightline statusbar
-    Plug 'scrooloose/nerdtree'                         " Nerdtree
-    Plug 'ryanoasis/vim-devicons'                      " Icons for Nerdtree
-    Plug 'dracula/vim', { 'as': 'dracula' }            " Dracula Color Scheme
-    Plug 'tpope/vim-surround'                          " Change surrounding marks
-    Plug 'PotatoesMaster/i3-vim-syntax'                " i3 config highlighting
-    Plug 'kovetskiy/sxhkd-vim'                         " sxhkd highlighting
-    Plug 'vim-python/python-syntax'                    " Python highlighting
-    Plug 'ap/vim-css-color'                            " Color previews for CSS
-    Plug 'junegunn/vim-emoji'                          " Vim needs emojis!
-    Plug 'https://github.com/tpope/vim-commentary'     " Comment Out With gcc & Uncomment With gcgc
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}    " Code Completion (requires node)
-    Plug 'suan/vim-instant-markdown', {'rtp': 'after'} " Markdown Preview
-    Plug 'ghifarit53/tokyonight-vim'                   " Tokyo Night Theme
-call plug#end()
+" Enable plugins and load plugin for the detected file type.
+filetype plugin on
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General Settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set path+=**					" Searches current directory recursively.
-set wildmenu					" Display all matches when tab complete.
-set incsearch                   " Incremental search
-set hidden                      " Needed to keep multiple buffers open
-set nobackup                    " No auto backups
-set noswapfile                  " No swap
-set t_Co=256                    " Set if term supports 256 colors.
-set number                      " Display line numbers
-set clipboard=unnamedplus       " Copy/paste between vim and other programs.
-syntax enable                   " Enable syntax highlighting
-set nocompatible                " Be iMproved, required
-filetype plugin indent on       " Required
-set mouse=a                     " Required
-set encoding=UTF-8              " Set encoding
-let NERDTreeShowHidden=1        " NERDtree shows hidden files
-set term=kitty                  " fix for kitty terminal
-" colorscheme dracula             " Dracula Color Scheme
-set termguicolors
-let g:tokyonight_style = 'night' " available: night, storm
-let g:tokyonight_enable_italic = 1
+" Load an indent file for the detected file type.
+filetype indent on
 
-colorscheme tokyonight
-" get transparent bg & some markdown stuffs
-highlight Normal guibg=NONE ctermbg=NONE
-au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+" Turn syntax highlighting on.
+syntax on
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set expandtab                   " Use spaces instead of tabs.
-set smarttab                    " Be smart using tabs ;)
-set shiftwidth=4                " One tab == four spaces.
-set tabstop=4                   " One tab == four spaces.
+" Show line numbers
+set number
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Remap Keys
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remap ESC to ii
-:imap ii <Esc>
-" Ctrl + f opens and closes NERDtree
-nnoremap <C-f>		:NERDTreeToggle<CR>
-" Enter selects completion
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
-" Use Tab to trigger completion and navigate to the next complete item
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" Show relative line numbers
+set relativenumber
 
-inoremap <silent><expr> <Tab>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
+" Highlight cursor line underneath the cursor horizontally.
+"set cursorline
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Status Line
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" The lightline.vim theme
-let g:lightline = {
-      \ 'colorscheme': 'one',
-      \ }
-" Always show statusline
+" Highlight cursor line underneath the cursor vertically.
+"set cursorcolumn
+
+" Allow mouse movement
+set mouse=a
+
+" Set shift width to 4 spaces.
+set shiftwidth=4
+
+" Set tab width to 4 columns.
+set tabstop=4
+
+" Use space characters instead of tabs.
+set expandtab
+
+" Do not save backup files.
+set nobackup
+
+" Do not let cursor scroll below or above N number of lines when scrolling.
+set scrolloff=10
+
+" Do not wrap lines. Allow long lines to extend as far as the line goes.
+"set nowrap
+
+" Enable wrap
+set wrap
+
+" Status bar
 set laststatus=2
-" Uncomment to prevent non-normal modes showing in powerline and below powerline.
-set noshowmode
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Lines to save text folding
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd BufWinLeave *.* mkview 
-autocmd BufWinEnter *.* silent loadview
+" While searching though a file incrementally highlight matching characters as you type.
+set incsearch
+
+" Ignore capital letters during search.
+set ignorecase
+
+" Override the ignorecase option if searching for capital letters.
+" This will allow you to search specifically for capital letters.
+set smartcase
+
+" Show partial command you type in the last line of the screen.
+set showcmd
+
+" Show the mode you are on the last line.
+set showmode
+
+" Show matching words during a search.
+set showmatch
+
+" Use highlighting when doing a search.
+set hlsearch
+
+" Set the commands to save in history default number is 20.
+set history=1000
+
+" Enable auto completion menu after pressing TAB
+set wildmenu
+
+" Make wildmenu behave like similar to Bash completion.
+set wildmode=list:longest
+
+" There are certain files that we would never want to edit with Vim.
+" Wildmenu will ignore files with these extensions.
+set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
