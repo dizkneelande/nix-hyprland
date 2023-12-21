@@ -1,2 +1,2 @@
-- clamshell script for laptops
+- clamshell mode script
 - TODO .bashrc
