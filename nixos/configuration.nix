@@ -9,7 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       # Include Home Manager
-      <home-manager/nixos>
+      ./home.nix
     ];
 
   # Bootloader
@@ -88,7 +88,6 @@
     vim
     wget
     btop
-    gtop
     htop
     git
     libvirt
@@ -99,6 +98,7 @@
     unrar
     gnome.file-roller
     gnome-browser-connector
+    gnome.gnome-tweaks
     libnotify
     swaynotificationcenter
     tofi
@@ -108,12 +108,15 @@
     swww
     imv
     wlr-randr
-    swappy
     kitty
     xfce.thunar
     xfce.tumbler
+    v4l-utils
+    gammastep
     # Misc
+    ydotool
     wl-clipboard
+    socat
     cowsay
     lsd
     neofetch
@@ -123,13 +126,12 @@
     transmission-gtk
     tty-clock
     cool-retro-term
-    home-manager
-    gammastep
     # Photo & Video
     mpv
     gimp
     obs-studio
     blender
+    openshot-qt
     # Online
     firefox
     thunderbird
@@ -142,9 +144,7 @@
     ninja
     go
     nodejs_21
-    godot_4
     rustup
-    rust-analyzer
     vscode
     # Audio and Brightness
     pavucontrol
@@ -194,13 +194,6 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
-  ## -- home manager ---- ##
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    users.nell = import ./home.nix;
-  };
   
 }
 

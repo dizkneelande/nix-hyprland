@@ -1,6 +1,15 @@
 { config, pkgs, ... }:
 
+let
+  home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-23.11.tar.gz";
+in
 {
+  imports = [
+    (import "${home-manager}/nixos")
+  ];
+
+  home-manager.users.nell = {
+  
   home.username = "nell";
   home.homeDirectory = "/home/nell";
   home.stateVersion = "23.11";
@@ -161,7 +170,7 @@
 	position = "top";
 
 	modules-left = [ "hyprland/window" ];
-	modules-center = [ "network" "pulseaudio" "cpu" "hyprland/workspaces" "memory" "disk" "clock" ];
+	modules-center = [ "network" "pulseaudio" "cpu" "hyprland/workspaces" "memory" "battery" "clock" ];
 	modules-right = [ "custom/notification" "tray" ];
 	"hyprland/workspaces" = {
         	format = "{icon}";
@@ -342,7 +351,7 @@
     		padding: 2px 20px;
 	}
 	#battery {
-    		color: #f7768e;
+    		color: #9ece6a;
     		background: #1a1b26;
     		border-radius: 15px;
     		margin: 5px;
@@ -378,5 +387,6 @@
 	}
       '';
     };
+  };
   };
 }
