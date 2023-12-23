@@ -103,7 +103,10 @@
     swaynotificationcenter
     tofi
     waybar
+    #networkmanager
     networkmanagerapplet
+    #bluez
+    blueman
     killall
     swww
     imv
