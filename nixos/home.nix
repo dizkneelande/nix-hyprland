@@ -107,6 +107,7 @@ in
         '';
     };
   };
+  home.sessionVariables.GTK_THEME = "Tokyonight-Stiorm-BL";
   programs = {
     kitty = {
       enable = true;
