@@ -91,7 +91,7 @@
     htop
     git
     libvirt
-    qemu-full
+    qemu_full
     virt-manager
     virtiofsd
     grim
