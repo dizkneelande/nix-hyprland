@@ -91,6 +91,9 @@
     htop
     git
     libvirt
+    qemu-full
+    virt-manager
+    virtiofsd
     grim
     slurp
     lm_sensors
@@ -115,10 +118,13 @@
     xfce.thunar
     xfce.tumbler
     v4l-utils
+    yt-dlp
     gammastep
     # Misc
     ydotool
     wl-clipboard
+    scrcpy
+    android-tools
     socat
     cowsay
     lsd
